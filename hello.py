@@ -13,7 +13,9 @@ def hello_world():
 @app.route('/nutrient_table')
 def nutrient_table():
     headline_py = 'Nutrients Table Solo'
-    info = {}
+    info = {}   # test undefined
+    #info = get_nutrients_per_serving()
+    
     #  // struct / JSON
     nutrients = {
       'rcp_id': 6,
@@ -25,6 +27,6 @@ def nutrient_table():
       'n_Sa': 0.58,
       'serving_size': 190.0
     };
-    #info = get_nutrients_per_serving()    
+    
+    #return render_template("nutrient_traffic_lights_page.html", headline=headline_py, info=info)
     return render_template("nutrient_traffic_lights_page.html", headline=headline_py, info=nutrients)
-

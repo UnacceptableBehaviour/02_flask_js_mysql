@@ -85,21 +85,34 @@ function fill_and_format_nutrients(nutrients){
 function fill_in_nutrients_table() {
   
   // struct / JSON
-  nutrients = {
-    rcp_id: 6,
-    recipe_title: 'Light Apricot Cous Cous',
-    n_En: 154.0,
-    n_Fa: 3.12,
-    n_Fs: 1.33,
-    n_Su: 2.93,
-    n_Sa: 0.58,
-    serving_size: 190.0
-  };
-
-  fill_and_format_nutrients(nutrients);
+  //nutrients = {
+  //  rcp_id: 6,
+  //  recipe_title: 'Light Apricot Cous Cous',
+  //  n_En: 154.0,
+  //  n_Fa: 3.12,
+  //  n_Fs: 1.33,
+  //  n_Su: 2.93,
+  //  n_Sa: 0.58,
+  //  serving_size: 190.0
+  //};
+  //fill_and_format_nutrients(nutrients);
   
-  console.log('PAGE_LOADED - FILL NUTIRENTS - NOT CACHED');    
+  fill_and_format_nutrients(info_t);      // info_t passed in through Jinja 
+  
+  // make
+
+
+  console.log('PAGE_LOADED:' + create_timestamp());    
   display_template_params();
+}
+
+function create_timestamp(){
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  var date_time = date+' '+time;
+  
+  return date_time;
 }
 
 function display_template_params(){
@@ -109,6 +122,9 @@ function display_template_params(){
     console.log(`${key} - ${info_t[key]}`);
   }
 }
+
+// attach an event listener to nutrient table
+document.querySelector('#nutri_taffic_table_main').addEventListener('load', fill_in_nutrients_table);
 
 // attach an event listener to the button
 document.querySelector('#b_update').addEventListener('mousedown', display_template_params);
@@ -191,9 +207,20 @@ function clear_table_colours(){
 }
 
 
+// ways to load table
 
+///////// 1
+// see if we have valid data and fire from here!
+//if (info_t['rcp_id'] != undefined) {
+//  fill_in_nutrients_table();
+//}
 
+///////// 2
+// add an onload attribute to the body and call it from there - in html file:
+// <body onload="fill_in_nutrients_table()">
 
+///////// 3
+document.addEventListener('DOMContentLoaded', fill_in_nutrients_table());
 
 
 
