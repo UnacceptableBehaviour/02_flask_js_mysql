@@ -1,0 +1,23 @@
+{% extends 'nav_buttons.html' %}
+
+{% block content %}
+
+    <script>      
+
+      var info_t = {{ info|tojson }};   // take info passed into template serialise into JSON format
+      
+      console.log(`JC-CONSOLE-FROM JINJA TEMPLATE`);
+      
+      console.log(`JC-CONSOLE-FROM JINJA TEMPLATE ${info_t['recipe_title']}`);
+
+      console.log('nutrient_traffic_lights PAGE.js - inline CONCLUDED');
+      
+    </script>
+
+
+    {% include 'nutrient_traffic_lights.html' %}
+    
+    <br>
+    <h3>{{ info['rcp_id'] }} : {{ info['recipe_title'] }} - Serving size {{ info['serving_size'] }}g </h3>
+
+{% endblock %}
