@@ -1,0 +1,54 @@
+{% block content %}
+<div>    
+    {% if recipe_image != '' %}
+      <img id='recipe_image' src="http://192.168.0.8:8000/static/recipe/{{info['image']}}">
+    {% else %}
+      <img id='recipe_image' src="http://192.168.0.8:8000/static/recipe/awesome_sauce_landing_page_QR_code.png">
+    {% endif %}
+    <h2>{{ info['title'] }}</h2>    
+    <p>You selected: {{info['image']}}</p>
+
+    
+    {% include 'nutrient_traffic_lights.html' %}
+    
+    <p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </p>
+    <p>for loop through keys</p>
+    {% for key in image_dict %}
+    <lu>{{key}}</lu><br>
+    {% endfor %}
+
+    <p>for loop through keys - dereference image_dict</p>
+    {% for key in image_dict %}
+    <lu>{{key}} - {{image_dict[key]['title']}}</lu><br>
+    {% endfor %}
+
+    <p>iterating dictionary with <strong><em>items()</em></strong></p>
+    {% for key, image in image_dict.items() %}
+    <lu>{{key}} - {{image}}</lu><br>
+    {% endfor %}
+    
+    <p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </p><br>
+
+    <div>
+        <input name="allergies" list="allergens" placeholder="Any allergies?">
+        <datalist id="allergens">
+            <option value="celery">
+            <option value="cereal - wheat">
+            <option value="crustacean">
+            <option value="egg">
+            <option value="fish">
+            <option value="lupin">
+            <option value="milk">
+            <option value="molluscs">
+            <option value="mustard">                    
+            <option value="peanuts">
+            <option value="sesame seeds">
+            <option value="nuts and seeds">
+            <option value="soya">
+            <option value="sulphur dioxide / sulphites">
+            <option value="lactose">
+            <option value="gluten">
+        </datalist>
+    </div>
+</div>
+{% endblock %}

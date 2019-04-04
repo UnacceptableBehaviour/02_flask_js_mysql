@@ -1,0 +1,21 @@
+{% extends 'nav_buttons.html' %}
+
+{% block content %}
+
+    <script>      
+
+      var info_t = {{ info|tojson }};                       // convert info using tojson filter
+      
+      console.log(`JC-CONSOLE-FROM JINJA TEMPLATE ${info_t['recipe_title']}`);  // sanity check
+
+      console.log('nutrient_traffic_lights PAGE.js - inline CONCLUDED');  //
+      
+    </script>
+
+    {% include 'recipe_t.html' %}
+    
+    <br>
+
+    <p>{{ info['rcp_id'] }} : {{ info['recipe_title'] }} - Serving size {{ info['serving_size'] }}g </p>
+
+{% endblock %}
