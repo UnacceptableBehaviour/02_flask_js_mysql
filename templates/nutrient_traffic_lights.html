@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
+  <script>      
+    var info_t = {{ info|tojson }};                       // convert info using tojson filter      
+    console.log(`recipe_t JS ${info_t['recipe_title']} - inline CONCLUDED`);  // sanity check      
+  </script>
+
   <div class="container">
     <div id="nutri_taffic_table_main" class="card card-body">  
       <table class='nutri_taffic_table'>

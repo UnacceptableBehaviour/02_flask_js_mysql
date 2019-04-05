@@ -22,13 +22,11 @@ import urllib.request
 #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 def get_csv_from_server_as_disctionary(url):    
-    print("----- get_csv_from_server_as_disctionary -----------------------------------")
-    
+    print("----- get_csv_from_server_as_disctionary -----------------------------------")    
     url = urllib.parse.quote(url, safe='/:')  # replace spaces if there are any - urlencode
     print(url)
     
-    csv_file = url.split('/')[-1]
-    
+    csv_file = url.split('/')[-1]    
     print(csv_file)
     
     local_file_name = f"./scratch/{csv_file}"
@@ -54,7 +52,7 @@ def get_csv_from_server_as_disctionary(url):
             
             entries +=1
 
-    pprint(sql_dict[23])
+    #pprint(sql_dict[23])
     
     print("----- reponse ------------------------------------------------------------")
     
@@ -77,24 +75,10 @@ def get_recipe_details(recipe_text_filename):
     print(url)
 
     # IN  http://192.168.0.8:8000/static/recipe/20190228_163410_monkfish and red pepper skewers.txt
-        
-    #url = urllib.parse.quote(url)          # mangles name?
-    # OUT http%3A//192.168.0.8%3A8000/static/recipe/20190228_163410_monkfish%20and%20red%20pepper%20skewers.txt
- 
-    #url = urllib.parse.quote_plus(url)          # mangles name? - 
-    # OUT http%3A%2F%2F192.168.0.8%3A8000%2Fstatic%2Frecipe%2F20190228_163410_monkfish+and+red+pepper+skewers.txt 
-    
-    #url = url.replace(" ", "%20")          # WORKS 
+    # url = url.replace(" ", "%20")          # WORKS 
     # OUT http://192.168.0.8:8000/static/recipe/20190228_163410_monkfish%20and%20red%20pepper%20skewers.txt
 
-    #url = urllib.request.pathname2url(url)             # mangles name?
-    # OUT http%3A//192.168.0.8%3A8000/static/recipe/20190228_163410_monkfish%20and%20red%20pepper%20skewers.txt
-    
-    #url = urllib.parse.quote(url, safe=':')            # partially mangles name . . 
-    # OUT http:%2F%2F192.168.0.8:8000%2Fstatic%2Frecipe%2F20190228_163410_monkfish%20and%20red%20pepper%20skewers.txt
-    
-    url = urllib.parse.quote(url, safe='/:')  # WORKS 
-    
+    url = urllib.parse.quote(url, safe='/:')  # WORKS - likely more robust
     print(url)
     
     local_file_name = f"./scratch/{recipe_text_filename}"    
@@ -112,8 +96,7 @@ def get_recipe_details(recipe_text_filename):
         print(f"File NOT PRESENT: {file_info}")
         return
 
-    recipe_text = f.read()
-    
+    recipe_text = f.read()    
     f.close()
     
     # Matches
@@ -123,6 +106,7 @@ def get_recipe_details(recipe_text_filename):
     # 4 - yield
     match = re.search( r'^-+- for the (.*) \((\d+)\)(.*)^\s+Total \((.*?)\)', recipe_text, re.MULTILINE | re.DOTALL )
     
+    # easy to detect failure in the data
     recipe_info = {
         'recipe_title':"Initialised as NO MATCH",
         'ingredients':"Pure green",
@@ -134,6 +118,8 @@ def get_recipe_details(recipe_text_filename):
         recipe_info['recipe_title'] = match.group(1).strip()
         recipe_info['portions'] = match.group(2).strip()
         recipe_info['yield'] = match.group(4).strip()
+        
+        # the return group is split mid line - this is used to fix that
         i_list = (''.join( match.group(3).strip() ) ).split("\n")
         
         # remove comments (after #) from ingredients in recipe: 10g allspice     # woa that's gonna be strong!
@@ -147,13 +133,12 @@ def get_recipe_details(recipe_text_filename):
         
         print(f"NAME: {match.group(1).strip()}")
         print(f"PORTIONS: ({match.group(2).strip()})")
-        print(f"INGREDIENTS:\n") #{match.group(3).strip()}")
+        print(f"INGREDIENTS:\n")
         pprint(i_list)
         print(f"YIELD: {match.group(4).strip()}")
         
-        #ingredients = [('46g','yellow cake uranium'),('1bag', 'plutoneum pellets'),('1list','secret codes'),('1sphere','blast concentrator')] # build an array of tuple to pass back in recipe_info
-        #recipe_info['ingredients'] = ingredients
         recipe_info['ingredients'] = i_list
+        
     else:
         print(f"BAD TEMPLATE IN {recipe_text_filename} < - = - = - = - = - = - = - = - = - = - = < < !!")
         # raise exception here

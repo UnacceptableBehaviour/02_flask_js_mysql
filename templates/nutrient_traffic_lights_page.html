@@ -2,16 +2,6 @@
 
 {% block content %}
 
-    <script>      
-
-      var info_t = {{ info|tojson }};                       // convert info using tojson filter
-      
-      console.log(`JC-CONSOLE-FROM JINJA TEMPLATE ${info_t['recipe_title']}`);  // sanity check
-
-      console.log('nutrient_traffic_lights PAGE.js - inline CONCLUDED');  //
-      
-    </script>
-
     {% include 'nutrient_traffic_lights.html' %}
     
     <br>
