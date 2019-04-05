@@ -1,14 +1,23 @@
 {% block content %}
 <div>    
     {% if recipe_image != '' %}
-      <img id='recipe_image' src="http://192.168.0.8:8000/static/recipe/{{info['image']}}">
+      <img id='recipe_image' src="http://192.168.0.8:8000/static/recipe/{{info['image_file']}}">
     {% else %}
       <img id='recipe_image' src="http://192.168.0.8:8000/static/recipe/awesome_sauce_landing_page_QR_code.png">
     {% endif %}
-    <h2>{{ info['title'] }}</h2>    
-    <p>You selected: {{info['image']}}</p>
-
+    <h2>{{ info['recipe_title'] }}</h2>    
+    <h3>Ingredients</h3>
     
+    <table>
+        {% for tuple in info['ingredients'] %}
+        <tr>
+            <td>{{tuple[0]}}</td>
+            <td>{{tuple[1]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+        
+        
     {% include 'nutrient_traffic_lights.html' %}
     
     <p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </p>
@@ -19,7 +28,7 @@
 
     <p>for loop through keys - dereference image_dict</p>
     {% for key in image_dict %}
-    <lu>{{key}} - {{image_dict[key]['title']}}</lu><br>
+    <lu>{{key}} - {{image_dict[key]['recipe_title']}}</lu><br>
     {% endfor %}
 
     <p>iterating dictionary with <strong><em>items()</em></strong></p>

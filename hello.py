@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 from helpers import get_csv_from_server_as_disctionary, get_recipe_details
-
+import pprint
 
 
 @app.route('/')
@@ -42,38 +42,60 @@ def recipe_page():
     sql_dict = get_csv_from_server_as_disctionary(url_file)
     
     print(sql_dict.__class__.__name__)
+    print(type(sql_dict))
     
     print(f">---------------------------------------- DICTIONARY LOADED >")
     
     for k, v in sql_dict.items():
-        print(f"> > > K:{k} - V:{v['title']} {k.__class__.__name__}")
+        print(f"> > > K:{k} - V:{v['recipe_title']} {k.__class__.__name__}")
     
-    #info = get_nutrients_per_serving()    
-    info = {
-        'image': '20190228_163410_monkfish and red pepper skewers.jpg',
-        'n_Al': '0.0',
-        'n_Ca': '3.46',
-        'n_En': '108',
-        'n_Fa': '3.85',
-        'n_Fb': '1.27',
-        'n_Fm': '1.43',
-        'n_Fo3': '0.41',
-        'n_Fp': '0.81',
-        'n_Fs': '1.13',
-        'n_Pr': '14.21',
-        'n_Sa': '0.82',
-        'n_St': '0.0',
-        'n_Su': '2.17',
-        'rcp_id': '23',
-        'serving_size': '80',
-        'text_file': '20190228_163410_monkfish and red pepper skewers.txt',
-        'recipe_title': 'monkfish and red pepper skewers'
-    }
+    # info = get_nutrients_per_serving()    
+    # info = {
+    #     'image_file': '20190228_163410_monkfish and red pepper skewers.jpg',
+    #     'n_Al': '0.0',
+    #     'n_Ca': '3.46',
+    #     'n_En': '108',
+    #     'n_Fa': '3.85',
+    #     'n_Fb': '1.27',
+    #     'n_Fm': '1.43',
+    #     'n_Fo3': '0.41',
+    #     'n_Fp': '0.81',
+    #     'n_Fs': '1.13',
+    #     'n_Pr': '14.21',
+    #     'n_Sa': '0.82',
+    #     'n_St': '0.0',
+    #     'n_Su': '2.17',
+    #     'rcp_id': '23',
+    #     'serving_size': '80',
+    #     'text_file': '20190228_163410_monkfish and red pepper skewers.txt',
+    #     'recipe_title': 'monkfish and red pepper skewers'
+    # }
     
-    info = sql_dict[23]
+    info = sql_dict[3]
     
-    get_recipe_details(info['text_file'])
+    # get ingredients from text file while learning templates  . . 
+    ingredients_et_al = get_recipe_details(info['text_file'])
+
+    print(f">------------------------------ MERGED < S")
+    
+    if (info['recipe_title'] == ingredients_et_al['recipe_title']):
+        print("# merge ingredients into info")
+        updated_info = {**info, **ingredients_et_al}
+    else:
+        print("# titles not the same!! waaa?")
+        print(f">{info['recipe_title']}< != >{ingredients_et_al['recipe_title']}<")
+            
+    for k, v in updated_info.items():
+        print(f"> > > K:{k} - V:{v} {type(v)}") # .__class__.__name__}")
+
+    for item in updated_info['ingredients']:
+        print(f"I> {item[0]} - {item[1]} <")
+    
+    
+    
+    print(f"\n>------------------------------ MERGED < E")    
+    
     
     headline_py = f"Recipe Page"
         
-    return render_template("recipe_page.html", headline=headline_py, info=info, image_dict=sql_dict)
+    return render_template("recipe_page.html", headline=headline_py, info=updated_info, image_dict=sql_dict)
