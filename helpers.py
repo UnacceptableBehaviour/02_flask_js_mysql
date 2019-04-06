@@ -21,8 +21,10 @@ import urllib.request
 # load a csv file into a list of dictionaries
 #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-def get_csv_from_server_as_disctionary(url):    
+def get_csv_from_server_as_disctionary(force_reload=False):
+    url = 'http://192.168.0.8:8000/static/sql_recipe_data.csv'       
     print("----- get_csv_from_server_as_disctionary -----------------------------------")    
+    
     url = urllib.parse.quote(url, safe='/:')  # replace spaces if there are any - urlencode
     print(url)
     
@@ -55,7 +57,11 @@ def get_csv_from_server_as_disctionary(url):
     #pprint(sql_dict[23])
     
     print("----- reponse ------------------------------------------------------------")
-    
+    print(sql_dict.__class__.__name__)
+    print(type(sql_dict))
+    print(f"ENTRIES: {len(sql_dict)} 0-{len(sql_dict)-1}")
+    print(f">---------------------------------------- DICTIONARY LOADED >------------")
+
     return sql_dict
     
 
@@ -64,12 +70,13 @@ def get_csv_from_server_as_disctionary(url):
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 #
 # load a text file from server - convert into partial recipe dictionary
+#                              - ingredients, yield & servings
 #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-def get_recipe_details(recipe_text_filename):    
+def get_recipe_ingredients_and_yield(recipe_text_filename):    
     recipe_info = {}
     
-    print("----- get_recipe_details -------------------------------------------------")
+    print("----- get_recipe_ingredients_and_yield -------------------------------------------------")
     base_url = 'http://192.168.0.8:8000/static/recipe/'
     url = f"{base_url}{recipe_text_filename}"
     print(url)
@@ -83,6 +90,7 @@ def get_recipe_details(recipe_text_filename):
     
     local_file_name = f"./scratch/{recipe_text_filename}"    
     print(local_file_name)
+
 
     ret_val = urllib.request.urlretrieve(url, local_file_name)    
     #pprint(ret_val)
@@ -145,8 +153,63 @@ def get_recipe_details(recipe_text_filename):
     
     return recipe_info
 
+
+def create_recipe_info_dictionary(sql_dict, rcp_id):
+    info = sql_dict[rcp_id]
+    updated_info = {'ingredients':[]}
     
+    # get ingredients from text file while learning templates  . . 
+    ingredients_et_al = get_recipe_ingredients_and_yield(info['text_file'])
+
+    print(f">------------------------------ MERGED < S")
     
+    if (info['recipe_title'] == ingredients_et_al['recipe_title']):
+        print("# merge ingredients into info")
+        updated_info = {**info, **ingredients_et_al}
+    else:
+        print("# titles not the same!! waaa?")
+        print(f">{info['recipe_title']}< != >{ingredients_et_al['recipe_title']}<")
+
+            
+    for k, v in updated_info.items():
+        print(f"> > > K:{k} - V:{v} {type(v)}") # .__class__.__name__}")
+
+    for item in updated_info['ingredients']:
+        print(f"I> {item[0]} - {item[1]} <")
+        
+    print(f"\n>------------------------------ MERGED < E")          
+    
+    return updated_info
+
+
+def inc_recipe_counter(max_id):
+    
+    file_name = './scratch/rcp_count.txt'
+    
+    if Path(file_name).is_file():
+        f = open(file_name, 'r')
+        count = f.read()
+        if count == '':
+            count = 0 
+        f.close()
+        print(f"read counter:{count}")        
+        count = int(count)
+        count += 1
+        count = count % (max_id-1)   # loop after reaching max_id
+        
+    else:
+        print(f"initialise counter:0")
+        count = 0
+
+    f = open(file_name, 'w')
+    f.write(str(count))
+    f.close()
+    print(f"wrote counter:{count}")
+
+    return count
+
+
+
     
 if __name__ == '__main__':
     print("-----  get CSV ------------------------------------S")
@@ -157,4 +220,4 @@ if __name__ == '__main__':
     recipe_text = '20190228_163410_monkfish and red pepper skewers.txt'
     #recipe_text = '20190109_143622_crabcakes.txt'
     #urllib.request = 'http://192.168.0.8:8000/static/recipe/20190109_143622_crabcakes.txt'
-    get_recipe_details(recipe_text)
+    get_recipe_ingredients_and_yield(recipe_text)

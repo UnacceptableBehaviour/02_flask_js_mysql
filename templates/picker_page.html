@@ -1,0 +1,11 @@
+{% extends 'nav_buttons.html' %}
+
+{% block content %}
+    
+    <h1>{{ headline }}</h1>
+
+    {% include 'picker_t.html' %}
+    
+    RECIPE id:{{rcp_id}} - {{ info['recipe_title'] }}
+    
+{% endblock %}
