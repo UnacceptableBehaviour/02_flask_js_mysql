@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 app = Flask(__name__)
 
-from helpers import get_csv_from_server_as_disctionary, get_recipe_ingredients_and_yield, create_recipe_info_dictionary, inc_recipe_counter
+from helpers import get_csv_from_server_as_disctionary, get_recipe_ingredients_and_yield, create_recipe_info_dictionary, inc_recipe_counter, log_exception
 import pprint
 import random
 
@@ -62,7 +62,7 @@ def picker_page():
     rcp_id = inc_recipe_counter(entries)
     
     updated_info = create_recipe_info_dictionary(sql_dict, rcp_id)
-    
+
     print(f"RECIPE id:{rcp_id}")
     
     return render_template("picker_page.html", headline='Toad head: Kaplooey. thud . . squirg', info=updated_info, rcp_id=rcp_id)
