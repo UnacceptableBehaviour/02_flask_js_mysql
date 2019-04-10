@@ -54,7 +54,7 @@ def get_csv_from_server_as_disctionary(force_reload=False):
             
             entries +=1
 
-    #pprint(sql_dict[23])
+    pprint(sql_dict[23])
     
     print("----- reponse ------------------------------------------------------------")
     print(sql_dict.__class__.__name__)

@@ -1,8 +1,15 @@
 {% block content %}
 <div>
-    
-    picker_t.html
-    
+    <script>      
+        var info_t = {{ info|tojson }};       // convert info using tojson filter      
+        console.log(`picker_t JS ${info_t['recipe_title']} - inline CONCLUDED`);  // sanity check      
+    </script>
+
+    <form id="recipe_picker_form" >
+        
+    </form>
+        
+    <script src='static/picker_t.js'></script>
     {% include 'recipe_t.html' %}
     
 </div>

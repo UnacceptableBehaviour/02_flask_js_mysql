@@ -52,11 +52,10 @@ def recipe_page():
 @app.route('/picker')
 def picker_page():
     print("PICKER PAGE ENTRY POINT")
-    sql_dict = get_csv_from_server_as_disctionary()    
+    sql_dict = get_csv_from_server_as_disctionary()
     
     entries = len(sql_dict)
-    print(f"sql_dict.size: {len(sql_dict)}")
-        
+    print(f"sql_dict.size: {len(sql_dict)}")        
     
     #rcp_id = random.randint(0,entries-1)    
     rcp_id = inc_recipe_counter(entries)
@@ -66,3 +65,33 @@ def picker_page():
     print(f"RECIPE id:{rcp_id}")
     
     return render_template("picker_page.html", headline='Toad head: Kaplooey. thud . . squirg', info=updated_info, rcp_id=rcp_id)
+
+
+@app.route('/picker_flask', methods=["GET", "POST"])
+def picker_flask():
+    sql_dict = get_csv_from_server_as_disctionary()
+    
+    if request.method =='GET':
+        rcp_id = 2
+        
+        headline_py = "Pick a Recipe (Flask) Opening"
+        
+        updated_info = create_recipe_info_dictionary(sql_dict, rcp_id)
+        
+        return render_template("picker_flask.html", headline=headline_py, info=updated_info, sql_dict=sql_dict, rcp_id=rcp_id)
+
+    else:           # POST
+        headline_py = "Pick a Recipe (Flask)"
+        rcp_id = 2
+        
+        you_picked = request.form.get("recipe_list_drop_down")
+        
+        # brute force for expedience POC
+        for recipe_no, recipe_info in sql_dict.items():
+            if recipe_info['recipe_title'] == you_picked:
+                rcp_id = recipe_no
+        
+        updated_info = create_recipe_info_dictionary(sql_dict, rcp_id)
+
+        return render_template("picker_flask.html", headline=headline_py, picked=you_picked, info=updated_info, sql_dict=sql_dict, rcp_id=rcp_id)
+        

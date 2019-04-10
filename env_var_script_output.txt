@@ -1,0 +1,44 @@
+/Users/simon/a_syllabus/lang/python/repos/02_flask_js_mysql
+/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python37.zip
+/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7
+/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/lib-dynload
+rvm_bin_path - /Users/simon/.rvm/bin
+TERM_PROGRAM - Apple_Terminal
+GEM_HOME - /Users/simon/.rvm/gems/ruby-2.3.0@foodlab
+SHELL - /bin/bash
+TERM - xterm-256color
+IRBRC - /Users/simon/.rvm/rubies/ruby-2.3.0/.irbrc
+TMPDIR - /var/folders/__/dm9gg_6s6_s2d3xmbm5s_p200000gn/T/
+Apple_PubSub_Socket_Render - /private/tmp/com.apple.launchd.qudI5B0TZS/Render
+TERM_PROGRAM_VERSION - 388.1.3
+OLDPWD - /Users/simon/a_syllabus/lang/ruby/scripts
+MY_RUBY_HOME - /Users/simon/.rvm/rubies/ruby-2.3.0
+FLASK_ENV - development
+TERM_SESSION_ID - 241E013D-8A9B-4B8A-85FC-5316B6055112
+FLASK_APP - hello.py
+USER - simon
+_system_type - Darwin
+rvm_path - /Users/simon/.rvm
+SSH_AUTH_SOCK - /private/tmp/com.apple.launchd.aE9wCoDb1S/Listeners
+__CF_USER_TEXT_ENCODING - 0x1F5:0x0:0x2
+VIRTUAL_ENV - /Users/simon/a_syllabus/lang/python/repos/02_flask_js_mysql/venv
+rvm_prefix - /Users/simon
+PATH - /Users/simon/a_syllabus/lang/python/repos/02_flask_js_mysql/venv/bin:/Users/simon/.rvm/gems/ruby-2.3.0@foodlab/bin:/Users/simon/.rvm/gems/ruby-2.3.0@global/bin:/Users/simon/.rvm/rubies/ruby-2.3.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/simon/a_syllabus/lang/ruby/scripts:/Users/simon/a_syllabus/lang/ruby/scripts/api_graphics:/Users/simon/a_syllabus/lang/ruby/scripts/z_data/z_rake_test:/Users/simon/a_syllabus/lang/ruby/scripts/_test_pen:/Users/simon/a_syllabus/lang/ruby/scripts/_quick_scripts/:/Users/simon/a_syllabus/lang/ruby/scripts/repos/:/Applications/kdiff3.app/Contents/MacOS/:/Users/simon/.rvm/bin
+PWD - /Users/simon/a_syllabus/lang/python/repos/02_flask_js_mysql
+LANG - en_GB.UTF-8
+_system_arch - x86_64
+XPC_FLAGS - 0x0
+PS1 - (venv) \h:\W \u\$ 
+_system_version - 10.12
+XPC_SERVICE_NAME - 0
+rvm_version - 1.26.0 (latest)
+SHLVL - 1
+HOME - /Users/simon
+LOGNAME - simon
+GEM_PATH - /Users/simon/.rvm/gems/ruby-2.3.0@foodlab:/Users/simon/.rvm/gems/ruby-2.3.0@global
+DISPLAY - /private/tmp/com.apple.launchd.Q04OW1grA3/org.macosforge.xquartz:0
+RUBYLIB - .:/Users/simon/a_syllabus/lang/ruby/repos/nutri_scrape/:.:/Users/simon/a_syllabus/lang/ruby/release:/Users/simon/a_syllabus/lang/ruby/scripts:
+RUBY_VERSION - ruby-2.3.0
+_system_name - OSX
+_ - ./report_env.py
+__PYVENV_LAUNCHER__ - /Users/simon/a_syllabus/lang/python/repos/02_flask_js_mysql/venv/bin/python

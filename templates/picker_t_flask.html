@@ -1,0 +1,20 @@
+{% block content %}
+<div>
+    
+    picker_t.html
+    PICKED: {{picked}}
+    <form class='form_recpie_dd' action="{{ url_for('picker_flask') }}" method="post">        
+        <input name="recipe_list_drop_down" list="recipe_list" placeholder="Which you fancy?">
+        
+        <datalist id="recipe_list">
+            {% for rcp_id, recipe_info in sql_dict.items() %}
+            <option value="{{recipe_info['recipe_title']}}">
+            {% endfor %}
+        </datalist>
+        <button class='original_button' id='o_pick'>PICK!</button>        
+    </form>
+    
+    {% include 'recipe_t.html' %}
+    
+</div>
+{% endblock %}
