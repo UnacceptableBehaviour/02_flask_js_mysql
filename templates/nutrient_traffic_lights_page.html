@@ -2,10 +2,13 @@
 
 {% block content %}
 
-    {% include 'nutrient_traffic_lights.html' %}
-    
+    {% include 'nutrient_traffic_lights.html' %}    
     <br>
+    <p>{{ info['ri_id'] }} : {{ info['ri_name'] }} - Serving size {{ info['serving_size'] }}g </p>
 
-    <p>{{ info['rcp_id'] }} : {{ info['recipe_title'] }} - Serving size {{ info['serving_size'] }}g </p>
+    {% include 'nutrient_traffic_lights.html' %}    
+    <br>
+    <p>{{ info['ri_id'] }} : {{ info['ri_name'] }} - Serving size {{ info['serving_size'] }}g </p>
+
 
 {% endblock %}

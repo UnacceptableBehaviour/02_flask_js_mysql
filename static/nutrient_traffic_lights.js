@@ -46,7 +46,7 @@ function format_nutrition_table_column_colours(nut_qty, column, lower_threshold,
 
 function fill_and_format_nutrients(nutrients){
               
-  document.getElementById('traffic_title').textContent = `${nutrients.recipe_title} - Nutrition per ${ Math.round(nutrients.serving_size) }g serving`;                        
+  document.getElementById('traffic_title').textContent = `${nutrients.ri_name} - Nutrition per ${ Math.round(nutrients.serving_size) }g serving`;                        
   
   const multiplier = parseFloat(nutrients.serving_size)/100.0  // EG x1.6 got a serving size of 160g
   
@@ -86,8 +86,8 @@ function fill_in_nutrients_table() {
   
   // struct / JSON
   //nutrients = {
-  //  rcp_id: 6,
-  //  recipe_title: 'Light Apricot Cous Cous',
+  //  ri_id: 6,
+  //  ri_name: 'Light Apricot Cous Cous',
   //  n_En: 154.0,
   //  n_Fa: 3.12,
   //  n_Fs: 1.33,
@@ -97,7 +97,7 @@ function fill_in_nutrients_table() {
   //};
   //fill_and_format_nutrients(nutrients);
   
-  fill_and_format_nutrients(info_t);      // info_t passed in through Jinja 
+  fill_and_format_nutrients(info_t);      // info_t passed in through Jinja filter
   
   // make
 
@@ -117,7 +117,7 @@ function create_timestamp(){
 
 function display_template_params(){
   console.log("display_template_params: ");
-  console.log(`DATA FROM TEMPLATE - a: ${info_t['rcp_id']}`);  
+  console.log(`DATA FROM TEMPLATE - a: ${info_t['ri_id']}`);  
     for (var key in info_t) {
     console.log(`${key} - ${info_t[key]}`);
   }
@@ -211,7 +211,7 @@ function clear_table_colours(){
 
 ///////// 1
 // see if we have valid data and fire from here!
-//if (info_t['rcp_id'] != undefined) {
+//if (info_t['ri_id'] != undefined) {
 //  fill_in_nutrients_table();
 //}
 

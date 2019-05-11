@@ -7,8 +7,8 @@
         <input name="recipe_list_drop_down" list="recipe_list" placeholder="Which you fancy?">
         
         <datalist id="recipe_list">
-            {% for rcp_id, recipe_info in sql_dict.items() %}
-            <option value="{{recipe_info['recipe_title']}}">
+            {% for ri_id, recipe_info in sql_dict.items() %}
+            <option value="{{recipe_info['ri_name']}}">
             {% endfor %}
         </datalist>
         <button class='original_button' id='o_pick'>PICK!</button>        

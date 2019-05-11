@@ -2,8 +2,8 @@
 <html lang="en">
 <body>
   <script>      
-    var info_t = {{ info|tojson }};                       // convert info using tojson filter      
-    console.log(`recipe_t JS ${info_t['recipe_title']} - inline CONCLUDED`);  // sanity check      
+    var info_t = {{ info|tojson }};       // convert info using tojson filter      
+    console.log(`recipe_t JS ${info_t['ri_name']} - inline CONCLUDED`);  // sanity check      
   </script>
 
   <div class="container">

@@ -9,11 +9,11 @@ from pathlib import Path
 
 from pprint import pprint # giza a look
 
-# serve files from http://192.168.0.8:8000/static/sql_recipe_data.csv
+# serve files from http://127.0.0.1:8000/static/sql_recipe_data.csv
 # $ cd /a_syllabus/lang/python/repos/assest_server 
 # $ http-server -p 8000 --cors 
 import urllib.request
-# urllib.request.urlretrieve ("http://192.168.0.8:8000/static/sql_recipe_data.csv", "sql_recipe_data.csv")
+# urllib.request.urlretrieve ("http://127.0.0.1:8000/static/sql_recipe_data.csv", "sql_recipe_data.csv")
 # url = urllib.parse.quote(url, safe='/:')  # make sure files w/ spaces OK
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -22,7 +22,7 @@ import urllib.request
 #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 def get_csv_from_server_as_disctionary(force_reload=False):
-    url = 'http://192.168.0.8:8000/static/sql_recipe_data.csv'       
+    url = 'http://127.0.0.1:8000/static/sql_recipe_data.csv'       
     print("----- get_csv_from_server_as_disctionary -----------------------------------")    
     
     url = urllib.parse.quote(url, safe='/:')  # replace spaces if there are any - urlencode
@@ -85,13 +85,13 @@ def get_recipe_ingredients_and_yield(recipe_text_filename, recipe_name):
     recipe_info = {}
     
     print("----- get_recipe_ingredients_and_yield -------------------------------------------------")
-    base_url = 'http://192.168.0.8:8000/static/recipe/'
+    base_url = 'http://127.0.0.1:8000/static/recipe/'
     url = f"{base_url}{recipe_text_filename}"
     print(url)
 
-    # IN  http://192.168.0.8:8000/static/recipe/20190228_163410_monkfish and red pepper skewers.txt
+    # IN  http://127.0.0.1:8000/static/recipe/20190228_163410_monkfish and red pepper skewers.txt
     # url = url.replace(" ", "%20")          # WORKS 
-    # OUT http://192.168.0.8:8000/static/recipe/20190228_163410_monkfish%20and%20red%20pepper%20skewers.txt
+    # OUT http://127.0.0.1:8000/static/recipe/20190228_163410_monkfish%20and%20red%20pepper%20skewers.txt
 
     url = urllib.parse.quote(url, safe='/:')  # WORKS - likely more robust
     print(url)
@@ -141,14 +141,14 @@ def get_recipe_ingredients_and_yield(recipe_text_filename, recipe_name):
             
             # easy to detect failure in the data
             recipe_info = {
-                'recipe_title':"Initialised as NO MATCH",
+                'ri_name':"Initialised as NO MATCH",
                 'ingredients':"Pure green",
                 'portions': 0,
                 'yield': '0g'
             }
         
             if (match):
-                recipe_info['recipe_title'] = match.group(1).strip()
+                recipe_info['ri_name'] = match.group(1).strip()
                 recipe_info['portions'] = match.group(2).strip()
                 recipe_info['yield'] = match.group(4).strip()
                 
@@ -181,22 +181,22 @@ def get_recipe_ingredients_and_yield(recipe_text_filename, recipe_name):
     return recipe_info
 
 
-def create_recipe_info_dictionary(sql_dict, rcp_id):
-    info = sql_dict[rcp_id]
+def create_recipe_info_dictionary(sql_dict, ri_id):
+    info = sql_dict[ri_id]
     updated_info = {'ingredients':[]}
     
     # get ingredients from text file while learning templates  . . 
-    ingredients_et_al = get_recipe_ingredients_and_yield(info['text_file'],info['recipe_title'])
+    ingredients_et_al = get_recipe_ingredients_and_yield(info['text_file'],info['ri_name'])
     
     try:
         print(f">------------------------------ MERGED < S")
         
-        if (info['recipe_title'] == ingredients_et_al['recipe_title']):
+        if (info['ri_name'] == ingredients_et_al['ri_name']):
             print("# merge ingredients into info")
             updated_info = {**info, **ingredients_et_al}
         else:
             print("# titles not the same!! waaa?")
-            print(f">{info['recipe_title']}< != >{ingredients_et_al['recipe_title']}<")
+            print(f">{info['ri_name']}< != >{ingredients_et_al['ri_name']}<")
     
                 
         for k, v in updated_info.items():
@@ -208,10 +208,10 @@ def create_recipe_info_dictionary(sql_dict, rcp_id):
         print(f"\n>------------------------------ MERGED < E")          
         
     except Exception as e:
-        log_exception(f"create_recipe_info_dictionary: {rcp_id}", e)        
+        log_exception(f"create_recipe_info_dictionary: {ri_id}", e)        
         
     finally:
-        print(f"createD recipe_info_dictionary: {rcp_id}") 
+        print(f"createD recipe_info_dictionary: {ri_id}") 
 
     
     return updated_info
@@ -248,11 +248,11 @@ def inc_recipe_counter(max_id):
     
 if __name__ == '__main__':
     print("-----  get CSV ------------------------------------S")
-    fetch_file = 'http://192.168.0.8:8000/static/sql_recipe_data.csv'
+    fetch_file = 'http://127.0.0.1:8000/static/sql_recipe_data.csv'
     get_csv_from_server_as_disctionary(fetch_file)
     print("-----  get CSV ------------------------------------E")
 
     recipe_text = '20190228_163410_monkfish and red pepper skewers.txt'
     #recipe_text = '20190109_143622_crabcakes.txt'
-    #urllib.request = 'http://192.168.0.8:8000/static/recipe/20190109_143622_crabcakes.txt'
+    #urllib.request = 'http://127.0.0.1:8000/static/recipe/20190109_143622_crabcakes.txt'
     get_recipe_ingredients_and_yield(recipe_text,'crabcakes')

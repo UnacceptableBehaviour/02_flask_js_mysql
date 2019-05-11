@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700');
+
+
+/*-- CSS uses selectors to target elements to format on the page --*/
+/*-- CSS referece - https://www.w3schools.com/cssref/css_selectors.asp --*/
+/*--                          EG
+. selects elements class      .carousel-item { transition: -webkit-transform 0.5s ease; }
+# selects elements id         #fixed { background-image: url('img/mac.png'); }
+element                       body { background-color: lightblue; }
+
+. . . there are a lot see ref! 
+
+@media  based on viewport     @media (max-width: 576px) {  EG can create different set of rile for each size
+                                body { background-color: lightblue; }
+                              }                 
+
+--*/
+
+/*-- standard element tags --*/
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;     /*-- font (imported at the top), backup font --*/
+  color: #222;                            /*-- https://encycolorpedia.com/222222 --*/
+}
+
+/*--
+Rems and Ems are not equal,
+Rems use the root font-size which is given by the html tag
+(the default is 16px but you can change it to 10px to make easier calculation)
+-
+Ems are related to the font-size of their parent <  media-query
+(usually Ems are used with media-query).
+-
+More on units
+https://kyleschaeffer.com/css-font-size-em-vs-px-vs-pt-vs-percent
+--*/
+
+
+
+/*-- .nav-link property appears crossed out - means it's being over-ridden by another rule --*/
+/*--
+.nav-link {                              # turned out to be .navbar-nav li! picked up a tip css debug though!
+  padding-right: 80px;
+}
+--*/
+/*-- question is which? how to find out? --*/
+/*-- enter nav-link in the filter box (elements tab > styles tab) 
+Shows over ridden by
+@media (min-width: 768px) .navbar-expand-md .navbar-nav .nav-link
+{
+    padding-right: 0.5rem;
+    padding-left: .5rem;
+}
+navbar.scss 171     < line not in css file!
+--*/
+
+/*-- .navbar-nav li { }
+		<ul class="navbar-nav ml-auto">               <<  .navbar-nav
+			<li class="nav-item active">                <<  .navbar-nav  li   << li below class - 5 off
+				<a class="nav-link" href="#">Home</a>     
+			</li>
+--*/			
+/*-- class='navbar ...' --*/
+.navbar {
+  padding: .8rem;                         /*-- rem - root font size 16pixels --*/
+}
+.navbar-nav li {                        /*-- corrected class selector --*/
+  padding-right: 0.1em;                 /*-- 80px; move over test --*/
+}
+
+.nav-link {
+  font-size: 1.1em !important;
+  color: #222;  
+}
+
+
+
+
+
+
+/*--  --*/
+
+
+
+
+/*
+Extra small (xs) devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap
+
+Small (sm) devices (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+Medium (md) devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+Large (lg) devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+Extra (xl) large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+*/
+
+
+
+
+
+
+
+
