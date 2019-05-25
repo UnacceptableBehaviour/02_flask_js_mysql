@@ -23,9 +23,9 @@ function format_nutrition_table_column_colours(nut_qty, column, lower_threshold,
 
   console.log(`HEAT: ${heat} < - COLOUR: ${col_mapping[heat]} < id: ${id_qty}`);
   
-  serving_qty = parseFloat(nut_qty) * multiplier;
-  
-  document.getElementById(id_qty).textContent = nut_qty;
+  serving_qty = (parseFloat(nut_qty) * multiplier).toFixed(1);  // returns a string
+                                                                // 
+  document.getElementById(id_qty).textContent = serving_qty;
   
   console.log(`HEAT: ${heat} < - COLOUR: ${col_mapping[heat]} < id: ${id_hml}`);
   document.getElementById(id_hml).textContent = heat;
